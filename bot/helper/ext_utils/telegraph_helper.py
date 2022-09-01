@@ -61,21 +61,25 @@ class TelegraphHelper:
         num_of_path = len(path)
         for content in telegraph_content :
             if nxt_page == 1 :
-                content += f'<b><a href="https://telegra.ph/{path[nxt_page]}">Next</a></b>'
+                content += f'<b><a href="https://graph.org/{path[nxt_page]}">Next</a></b>'
                 nxt_page += 1
             else :
                 if prev_page <= num_of_path:
-                    content += f'<b><a href="https://telegra.ph/{path[prev_page]}">Prev</a></b>'
+                    content += f'<b><a href="https://graph.org/{path[prev_page]}">Prev</a></b>'
                     prev_page += 1
                 if nxt_page < num_of_path:
-                    content += f'<b> | <a href="https://telegra.ph/{path[nxt_page]}">Next</a></b>'
+                    content += f'<b> | <a href="https://graph.org/{path[nxt_page]}">Next</a></b>'
                     nxt_page += 1
             self.edit_page(
                 path = path[prev_page],
-                title = 'Mirror-leech-bot Torrent Search',
+                title = 'Helios Mirror Torrent Search',
                 content=content
             )
         return
 
-
-telegraph=TelegraphHelper(f'{AUTHOR_NAME}', f'{AUTHOR_URL}')
+try:
+    telegraph=TelegraphHelper(f'{AUTHOR_NAME}', f'{AUTHOR_URL}')
+except Exception as err:
+    LOGGER.warning(f"Can't Create Telegraph Account: {err}")
+    telegraph = None
+    pass
